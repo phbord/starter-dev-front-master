@@ -1,0 +1,1071 @@
+{% extends "../partials/layout.twig" %}
+
+
+{# TITLE #}
+{% block title %}Index{% endblock %}
+
+{# CONTENT #}
+{% block page %}
+    {# VideoJS #}
+    <link href="https://vjs.zencdn.net/7.5.5/video-js.css" rel="stylesheet" />
+    
+    {# TWIG Components #}
+    {% import '../components/panel.twig' as panel %}
+    {% import '../components/scroll-top-page.twig' as scrollTopPage %}
+    {% import '../components/list.twig' as list %}
+    {% import '../components/form.twig' as form %}
+    {% import '../components/select.twig' as select %}
+    {% import '../components/media.twig' as media %}
+    {% import '../components/code.twig' as code %}
+    {% import '../components/pagination.twig' as pagination %}
+    {% import '../components/progress.twig' as progress %}
+    {% import '../components/steps.twig' as steps %}
+    {% import '../components/modal.twig' as modal %}
+
+
+    {# SCROLL Top Button #}
+    {{ scrollTopPage.srollTopPageButton('haut de page', 'top') }}
+
+
+    {# PANELS #}
+    {% set panelBodyContent %}
+        <strong>Body here...</strong>
+    {% endset %}
+    {% set panelFooterContent %}
+        <strong>Footer here...</strong>
+    {% endset %}
+    {{ panel.panelPos(panelBodyContent, panelFooterContent, 'left', 'panel-left-1', 'Mon titre') }}
+    {{ panel.panelPos(panelBodyContent, panelFooterContent, 'right', 'panel-right-1', 'Mon titre') }}
+
+    {# COOKIE PANEL #}
+    {{ panel.panelCookiePos('panel-cookie-1') }}
+
+
+    <main role="main" class="container flex-shrink-0">
+        <div class="jumbotron">
+
+            <h1>STYLE GUIDE</h1>
+
+            {# STYLES #}
+            <div class="row my-5 border-bottom">
+
+                <div class="col-12">
+                    <h2>STYLES</h2>
+                </div>
+
+                {# Fonts #}
+                <div class="max-width-container col-12 my-5">
+                    <div class="my-3">
+                        <h3 class="mb-2">Font family</h3>
+                        {# Code #}
+                        {% set codeContent = "font family: 'Montserrat', sans-serif;" %}
+                        {{ code.codeClipboard(codeContent, 'css') }}
+                    </div>
+
+                    <h3 class="mb-2">Font sizes</h3>
+                    <div class="my-3">
+                        <div style="font-weight: 300;">300 - light</div>
+                        <div style="font-weight: 400;">400 - semi-light</div>
+                        <div style="font-weight: 500;">500 - normal</div>
+                        <div style="font-weight: 600;">600 - semi-bold</div>
+                        <div style="font-weight: 700;">700 - bold</div>
+                    </div>
+                </div>
+
+                {# Colors #}
+                <div class="max-width-container col-12 my-5">
+                    <h3 class="mb-2">Colors</h3>
+                    <div class="d-flex">
+                        {% set colorsArr = [
+                            { 'bgClass': 'bg-white', 'textClass': 'text-dark' },
+                            { 'bgClass': 'bg-dark', 'textClass': 'text-white' },
+                        ] %}
+                        {% for item in colorsArr %}
+                            <div class="{{ item.bgClass }} {{ item.textClass }}" 
+                                 style="width: 10rem; font-size: 1.2rem">
+                                <div class="text-center p-1">{{ item.bgClass }}</div>
+                                <div class="text-center p-1">{{ item.textClass }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {# Headings #}
+                <div class="max-width-container col-12 my-5">
+                    <h3 class="mb-2">Headings</h3>
+                    <div class="my-3">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="80">Markup</th>
+                                    <th scope="col">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in 1..6 %}
+                                    <tr>
+                                        <td>
+                                            <p><code class="highlighter-rouge">&lt;h{{i}}&gt;&lt;/h{{i}}&gt;</code></p>
+                                        </td>
+                                        <td>
+                                            <h{{i}} class="h{{i}}">heading class .h{{i}}</h{{i}}>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            {# MEDIA #}
+            <div class="row my-5 border-bottom">
+
+                <div class="col-12">
+                    <h2>MEDIA</h2>
+                </div>
+
+                {# SVG inline #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Icône (SVG inline) <span class="badge bg-white text-dark">twig component</span></h3></h3>
+                    <div class="my-3">
+                        {{ media.svgInline('icon-search', '20', '20', 'red') }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "{{ media.svgInline('icon-search', '20', '20', 'red') }}" %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Image #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Image <span class="badge bg-white text-dark">twig component</span></h3>
+                    <figure class="figure my-3">
+                        {{ media.image('../assets/images/chucknorris.jpg', '', 'Torse musculeux et poilu de Chuck Norris') }}
+                        <figcaption class="figure-caption mt-1">Torse musculeux et poilu de Chuck Norris.</figcaption>
+                    </figure>
+                    {# Code #}
+                    {% set codeContent = "{{ media.image('../assets/images/chucknorris.jpg', '', 'Torse musculeux et poilu de Chuck Norris') }}" %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Video #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Vidéo <span class="badge bg-white text-dark">twig component</span></h3>
+                    {% set videoData = [
+                        {'src':'http://s3.vid.web.acsta.net/FR/nmedia/33/18/66/61/51/19371648_sd_013.mp4', 'type':'ogg',},
+                        {'src':'http://s3.vid.web.acsta.net/FR/nmedia/33/18/66/61/51/19371648_sd_013.mp4', 'type':'webm'},
+                        {'src':'http://s3.vid.web.acsta.net/FR/nmedia/33/18/66/61/51/19371648_sd_013.mp4', 'type':'mp4'}
+                    ]%}
+                    {% set videoPoster = 'https://statics.filmstreaming1.pro/img/2016-03/1458870333_invasion-usa-1986.jpg' %}
+                    {% set videoAttributs = 'controls preload="auto" data-setup="{}"' %}
+                    <div class="my-3">
+                        {{ media.video( videoData, 'w-100', videoAttributs, videoPoster) }}
+                    </div>
+                    {# Code #}
+                    {% 
+                        set codeContent = "
+                            {% set videoData = [<br>
+                            {'src':'http://s3.vid.web.acsta.net/FR/nmedia/33/18/66/61/51/19371648_sd_013.ogg', 'type':'ogg',},<br>
+                            {'src':'http://s3.vid.web.acsta.net/FR/nmedia/33/18/66/61/51/19371648_sd_013.webm', 'type':'webm'},<br>
+                            {'src':'http://s3.vid.web.acsta.net/FR/nmedia/33/18/66/61/51/19371648_sd_013.mp4', 'type':'mp4'}<br>
+                            ]%}<br>
+                            {{ media.svgInline('icon-search', '20', '20', 'red') }}
+                        " 
+                    %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Video Youtube #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Vidéo Youtube <span class="badge bg-white text-dark">twig component</span></h3>
+                    <div class="my-3">
+                        {{ media.videoYoutube('https://www.youtube.com/embed/xoPeX9_JY4U', 'video-custom', '100%', '', '.5625', 'col-12') }}
+                    </div>
+                    {# Code #}
+                    {% 
+                        set codeContent = "
+                            {{ media.videoYoutube('https://www.youtube.com/embed/xoPeX9_JY4U', 'video-custom', '100%', '', '.5625', 'col-12') }}
+                        "
+                    %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Carousel #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Carousel <span class="badge bg-white text-dark">twig component</span></h3>
+                    <div class="my-3">
+                        {% set carouselData = [
+                            { "src": "https://www.ecranlarge.com/media/cache/resolve/637x252/uploads/articles/000/000/000/steven-seagal-photo-steven-seagal-1089600-large.jpg", "title": "Steven Seagal", "desc": "connu sous le pseudo saumon agile" },
+                            { "src": "https://i.imgur.com/WW7f5Pf.jpg", "title": "Jackie Chan", "desc": "rescapé du cirque de pékin, aux coups de poings-savates" },
+                            { "src": "https://www.telegraph.co.uk/content/dam/films/2018/11/29/Lundgren_trans_NvBQzQNjv4Bq7PJn9ps4IyDNr2w-BoesQZxCWy5ffZoUVLnp9tp0Oug.JPG?imwidth=1400", "title": "Dolph Lundgren", "desc": "mannequin bricolex" }
+                        ]%}
+                        {{ media.owlCarousel( carouselData, 'owlCarousel-1', '') }}
+                    </div>
+                    {# Code #}
+                    <p>
+                        <span>Voir : </span>
+                        <a href="https://owlcarousel2.github.io/">https://owlcarousel2.github.io/</a>
+                    </p>
+                    {% 
+                        set codeContent = '
+                            {% set carouselData = [<br>
+                                { "src": "https://www.ecranlarge.com/media/cache/resolve/637x252/uploads/articles/000/000/000/steven-seagal-photo-steven-seagal-1089600-large.jpg", "title": "Steven Seagal", "desc": "connu sous le pseudo saumon agile" },<br>
+                                { "src": "https://i.imgur.com/WW7f5Pf.jpg", "title": "Jackie Chan", "desc": "rescapé du cirque de pékin, aux coups de poings-savates" },<br>
+                                { "src": "https://www.telegraph.co.uk/content/dam/films/2018/11/29/Lundgren_trans_NvBQzQNjv4Bq7PJn9ps4IyDNr2w-BoesQZxCWy5ffZoUVLnp9tp0Oug.JPG?imwidth=1400", "title": "Dolph Lundgren", "desc": "mannequin bricolex" }<br>
+                            ]%}<br>
+                            {{ media.owlCarousel( carouselData, "owlCarousel-1", "") }}
+                        ' 
+                    %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+            </div>
+
+            {# FORM #}
+            <div class="row my-5 border-bottom">
+
+                <div class="col-12">
+                    <h2>FORM</h2>
+                </div>
+
+                {# Buttons #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Buttons</h3>
+                    <div>
+                        <button type="button" class="btn btn-primary">Primary</button>
+                        <button type="button" class="btn btn-secondary">Secondary</button>
+                        <button type="button" class="btn btn-success">Success</button>
+                        <button type="button" class="btn btn-danger">Danger</button>
+                        <button type="button" class="btn btn-warning">Warning</button>
+                        <button type="button" class="btn btn-info">Info</button>
+                        <button type="button" class="btn btn-light">Light</button>
+                        <button type="button" class="btn btn-dark">Dark</button>
+                        <button type="button" class="btn btn-link">Link</button>
+                    </div>
+                    <div class="my-3">
+                        <button type="button" class="btn btn-primary" disabled>Primary</button>
+                        <button type="button" class="btn btn-secondary" disabled>Secondary</button>
+                        <button type="button" class="btn btn-success" disabled>Success</button>
+                        <button type="button" class="btn btn-danger" disabled>Danger</button>
+                        <button type="button" class="btn btn-warning" disabled>Warning</button>
+                        <button type="button" class="btn btn-info" disabled>Info</button>
+                        <button type="button" class="btn btn-light" disabled>Light</button>
+                        <button type="button" class="btn btn-dark" disabled>Dark</button>
+                    </div>
+                    <div class="my-3">
+                        <button type="button" class="btn btn-outline-primary">Primary</button>
+                        <button type="button" class="btn btn-outline-secondary">Secondary</button>
+                        <button type="button" class="btn btn-outline-success">Success</button>
+                        <button type="button" class="btn btn-outline-danger">Danger</button>
+                        <button type="button" class="btn btn-outline-warning">Warning</button>
+                        <button type="button" class="btn btn-outline-info">Info</button>
+                        <button type="button" class="btn btn-outline-light">Light</button>
+                        <button type="button" class="btn btn-outline-dark">Dark</button>
+                    </div>
+                    {% set btnContent = '
+                        < button type="button" class="btn btn-primary">Primary< /button><br>
+                        < button type="button" class="btn btn-secondary">Secondary< /button><br>
+                        < button type="button" class="btn btn-success">Success< /button><br>
+                        < button type="button" class="btn btn-danger">Danger< /button><br>
+                        < button type="button" class="btn btn-warning">Warning< /button><br>
+                        < button type="button" class="btn btn-info">Info< /button><br>
+                        < button type="button" class="btn btn-light">Light< /button><br>
+                        < button type="button" class="btn btn-dark">Dark< /button><br>
+                        < button type="button" class="btn btn-link">Link< /button><br><br>
+                        < button type="button" class="btn btn-primary" disabled>Primary< /button><br>
+                        < button type="button" class="btn btn-secondary" disabled>Secondary< /button><br>
+                        < button type="button" class="btn btn-success" disabled>Success< /button><br>
+                        < button type="button" class="btn btn-danger" disabled>Danger< /button><br>
+                        < button type="button" class="btn btn-warning" disabled>Warning< /button><br>
+                        < button type="button" class="btn btn-info" disabled>Info< /button><br>
+                        < button type="button" class="btn btn-light" disabled>Light< /button><br>
+                        < button type="button" class="btn btn-dark" disabled>Dark< /button><br><br>
+                        < button type="button" class="btn btn-outline-primary">Primary< /button><br>
+                        < button type="button" class="btn btn-outline-secondary">Secondary< /button><br>
+                        < button type="button" class="btn btn-outline-success">Success< /button><br>
+                        < button type="button" class="btn btn-outline-danger">Danger< /button><br>
+                        < button type="button" class="btn btn-outline-warning">Warning< /button><br>
+                        < button type="button" class="btn btn-outline-info">Info< /button><br>
+                        < button type="button" class="btn btn-outline-light">Light< /button><br>
+                        < button type="button" class="btn btn-outline-dark">Dark< /button>
+                    ' %}
+                    {{ code.codeClipboard(btnContent, 'html') }}
+                </div>
+
+                {# Buttons sizes #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Buttons sizes</h3>
+                    <div class="my-3">
+                        <button type="button" class="btn btn-primary btn-lg">Large button</button>
+                        <button type="button" class="btn btn-secondary btn-lg">Large button</button>
+                    </div>
+                    <div class="my-3">
+                        <button type="button" class="btn btn-primary btn-sm">Small button</button>
+                        <button type="button" class="btn btn-secondary btn-sm">Small button</button>
+                    </div>
+                    <div class="my-3">
+                        <button type="button" class="btn btn-primary btn-block">Block level button</button>
+                        <button type="button" class="btn btn-secondary btn-lg btn-block">Block level button</button>
+                    </div>
+                    {# Code #}
+                    {% set btnSizeContent = '
+                        < button type="button" class="btn btn-primary btn-lg">Large button< /button><br>
+                        < button type="button" class="btn btn-secondary btn-lg">Large button< /button><br>
+                        < button type="button" class="btn btn-primary btn-sm">Small button< /button><br>
+                        < button type="button" class="btn btn-secondary btn-sm">Small button< /button><br>
+                        < button type="button" class="btn btn-primary btn-block">Block level button< /button><br>
+                        < button type="button" class="btn btn-secondary btn-lg btn-block">Block level button< /button>
+                    ' %}
+                    {{ code.codeClipboard(btnSizeContent, 'html') }}
+                </div>
+
+                {# Buttons with badges #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Buttons with badges</h3>
+                    <div class="my-3">
+                        <button type="button" class="btn btn-primary">
+                            Primary <span class="badge badge-light">4</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary">
+                            Primary <span class="badge badge-light">125</span>
+                        </button>
+                    </div>
+                    {# Code #}
+                    {% set btnBadgeContent = '
+                        < button type="button" class="btn btn-primary"><br>
+                            Primary < span class="badge badge-light">4< /span><br>
+                        < /button><br>
+                        < button type="button" class="btn btn-secondary"><br>
+                            Primary < span class="badge badge-light">125< /span><br>
+                        < /button>
+                    ' %}
+                    {{ code.codeClipboard(btnBadgeContent, 'html') }}
+                </div>
+
+                {# Input #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Input <span class="badge bg-white text-dark">twig component</span></h3>
+
+                    {# Input text #}
+                    <div class="form-group my-3">
+                        <label for="input-text-1">Input text</label>
+                        {{ form.input('text', 'form-control', 'input-text-1', 'input-text-1', 'saisir...') }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "
+                        {# Arguments => type, class, id, name, placeholder, value, required, min, max #}<br>
+                        {{ form.input('text', 'form-control', 'input-text-1', 'input-text-1', 'saisir...') }}" 
+                    %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+
+                    {# Input password #}
+                    <div class="form-group my-3">
+                        <label for="input-pswd-1">Input password</label>
+                        {{ form.input('password', 'form-control', 'input-pswd-1', 'input-pswd-1', 'saisir...') }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "{{ form.input('password', 'form-control', 'input-pswd-1', 'input-pswd-1', 'saisir...') }}" %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+
+                    {# Input hidden #}
+                    <div class="form-group my-3">
+                        <label for="input-hidden-1">Input hidden</label>
+                        {{ form.input('hidden', 'form-control', 'input-hidden-1', 'input-hidden-1', 'saisir...') }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "{{ form.input('hidden', 'form-control', 'input-hidden-1', 'input-hidden-1', 'saisir...') }}" %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+
+                    {# Input number #}
+                    <div class="form-group my-3">
+                        <label for="input-number-1">Input number</label>
+                        {{ form.input('number', 'form-control', 'input-number-1', 'input-number-1', 'saisir...') }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "{{ form.input('number', 'form-control', 'input-number-1', 'input-number-1', 'saisir...') }}" %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+
+                    {# Input email #}
+                    <div class="form-group my-3">
+                        <label for="input-email-1">Input email</label>
+                        {{ form.input('email', 'form-control', 'input-email-1', 'input-email-1', 'saisir...') }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "{{ form.input('email', 'form-control', 'input-email-1', 'input-email-1', 'saisir...') }}" %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+
+                    {# Input phone #}
+                    <div class="form-group my-3">
+                        <label for="input-phone-1">Input phone</label>
+                        {{ form.input('phone', 'form-control', 'input-phone-1', 'input-phone-1', 'saisir...') }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "{{ form.input('phone', 'form-control', 'input-phone-1', 'input-phone-1', 'saisir...') }}" %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+
+                    {# Input time #}
+                    <div class="form-group my-3">
+                        <label for="input-time-1">Input time</label>
+                        {{ form.input('time', 'form-control', 'input-time-1', 'input-time-1', 'saisir...', '', '', '09:00', '18:00') }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "{{ form.input('time', 'form-control', 'input-time-1', 'input-time-1', 'saisir...', '', '', '09:00', '18:00') }}" %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+
+                    {# Input range #}
+                    <div class="form-group my-3">
+                        <label for="input-range-1">Input range</label>
+                        {{ form.input('range', 'form-control', 'input-range-1', 'input-range-1', 'saisir...') }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "{{ form.input('range', 'form-control', 'input-range-1', 'input-range-1', 'saisir...') }}" %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+
+                    {# Input file #}
+                    <div class="form-group my-3">
+                        <label for="input-file-1">Input file</label>
+                        {{ form.input('file', 'd-block', 'input-file-1', 'input-file-1', 'saisir...') }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "{{ form.input('file', 'd-block', 'input-file-1', 'input-file-1', 'saisir...') }}" %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+
+                    {# Input file customized #}
+                    <div class="form-group my-3">
+                        {{ form.inputFile('file', 'd-block input-file-custom', 'input-file-2', 'input-file-2', 'saisir...') }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "{{ form.inputFile('file', 'd-block input-file-custom', 'input-file-2', 'input-file-2', 'saisir...') }}" %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+    
+                {# Input + Label valid #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Input + Label valid <span class="badge bg-white text-dark">twig component</span></h3>
+                    {# Input text #}
+                    <div class="form-group input-group-valid my-3">
+                        {{ form.input('text', 'form-control', 'input-text-valid-1', 'input-text-valid-1', '') }}
+                        <label for="input-text-valid-1">Prénom</label>
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "
+                        < div class=\"form-group input-group-valid my-3\"><br>
+                            {# Arguments => type, class, id, name, placeholder, value, required, min, max #}<br>
+                            {{ form.input('text', 'form-control', 'input-text-valid-1', 'input-text-valid-1', '') }}<br>
+                            < label for=\"input-text-valid-1\">Prénom< /label><br>
+                        < /div>
+                    " %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Radio buttons customized #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Radio buttons <span class="badge bg-white text-dark">twig component</span></h3>
+                    <div class="form-group my-3">
+                        {% set radioData = [
+                            {'text':'oui', 'value':'1', 'id':'radio-group-1', 'name':'radio-group'},
+                            {'text':'non', 'value':'2', 'id':'radio-group-2', 'name':'radio-group'},
+                            {'text':'je ne sais pas', 'value':'3', 'id':'radio-group-3', 'name':'radio-group', 'checked':'checked'}
+                        ] %}
+                        {{ form.inputRadio(radioData, '', 'radio-input-custom') }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "
+                        {% set radioData = [<br>
+                            {'text':'oui', 'value':'1', 'id':'radio-group-1', 'name':'radio-group'},<br>
+                            {'text':'non', 'value':'2', 'id':'radio-group-2', 'name':'radio-group'},<br>
+                            {'text':'je ne sais pas', 'value':'3', 'id':'radio-group-3', 'name':'radio-group', 'checked':'checked'}<br>
+                        ] %}<br>
+                        {{ form.inputRadio(radioData, '', 'radio-input-custom') }}
+                    " %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Toggle checkbox to disabled submit button  #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Toggle checkbox to disabled submit button</h3>
+                    {% set textCbButton1 = '
+                        Braddock ! Je vous préviens, attention où vous mettez les pieds !
+                    ' %}
+                    {% set textCbButton2 = '
+                        Je mets les pieds où je veux, Little John… et c\'est souvent dans la gueule.
+                    ' %}
+                    {% set textCbButton3 = '
+                        Bah, vous êtes que quatre les mecs, et tu n\'as plus qu\'une seule balle.
+                    ' %}
+                    {% set arrayCbButton1 = [
+                        { 'dataId': 'input-submit-1', 'id': 'form-customer-opt-1', 'class': '', 'value': '', 'text': textCbButton1, 'attributes': 'required', 'dataId': 'input-submit' }
+                    ] %}
+                    {% set arrayCbButton2 = [
+                        { 'dataId': 'input-submit-1', 'id': 'form-customer-opt-2', 'class': '', 'value': '', 'text': textCbButton2, 'attributes': 'required', 'dataId': 'input-submit' }
+                    ] %}
+                    {% set arrayCbButton3 = [
+                        { 'dataId': 'input-submit-1', 'id': 'form-customer-opt-3', 'class': '', 'value': '', 'text': textCbButton3, 'attributes': 'required', 'dataId': 'input-submit' }
+                    ] %}
+                    {# Checkbox #}
+                    <div class="form-group my-3">
+                        {{ form.inputCheckbox(arrayCbButton1, 'form-group', 'checkbox-input-custom', 'submit-customer') }}
+                    </div>
+                    <div class="form-group my-3">
+                        {{ form.inputCheckbox(arrayCbButton2, 'form-group', 'checkbox-input-custom', 'submit-customer') }}
+                    </div>
+                    <div class="form-group my-3">
+                        {{ form.inputCheckbox(arrayCbButton3, 'form-group', 'checkbox-input-custom', 'submit-customer') }}
+                    </div>
+                    {# Submit button #}
+                    <div class="form-group">
+                        {{ form.input('submit', 'form-control btn-success submit', 'input-submit-1', 'input-submit', '', 'Valider ma demande', '') }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "
+                        {% set textCbButton1 = '<br>
+                            Braddock ! Je vous préviens, attention où vous mettez les pieds !<br>
+                        ' %}<br>
+                        {% set textCbButton2 = '<br>
+                            Je mets les pieds où je veux, Little John… et c\'est souvent dans la gueule.<br>
+                        ' %}<br>
+                        {% set textCbButton3 = '<br>
+                            Bah, vous êtes que quatre les mecs, et tu n\'as plus qu\'une seule balle.<br>
+                        ' %}<br>
+                        {% set arrayCbButton1 = [<br>
+                            { 'dataId': 'input-submit-1', 'id': 'form-customer-opt-1', 'class': '', 'value': '', 'text': textCbButton1, 'attributes': 'required', 'dataId': 'input-submit' }<br>
+                        ] %}<br>
+                        {% set arrayCbButton2 = [<br>
+                            { 'dataId': 'input-submit-1', 'id': 'form-customer-opt-2', 'class': '', 'value': '', 'text': textCbButton2, 'attributes': 'required', 'dataId': 'input-submit' }<br>
+                        ] %}<br>
+                        {% set arrayCbButton3 = [<br>
+                            { 'dataId': 'input-submit-1', 'id': 'form-customer-opt-3', 'class': '', 'value': '', 'text': textCbButton3, 'attributes': 'required', 'dataId': 'input-submit' }<br>
+                        ] %}<br>
+                        < div class='form-group my-3'><br>
+                            {{ form.inputCheckbox(arrayCbButton1, 'form-group', 'checkbox-input-custom', 'submit-customer') }}<br>
+                        < /div><br>
+                        < div class='form-group my-3'><br>
+                            {{ form.inputCheckbox(arrayCbButton2, 'form-group', 'checkbox-input-custom', 'submit-customer') }}<br>
+                        < /div><br>
+                        < div class='form-group my-3'><br>
+                            {{ form.inputCheckbox(arrayCbButton3, 'form-group', 'checkbox-input-custom', 'submit-customer') }}<br>
+                        < /div><br>
+                        < div class='form-group'><br>
+                            {{ form.input('submit', 'form-control btn-success submit', 'input-submit-1', 'input-submit', '', 'Valider ma demande', '') }}<br>
+                        < /div><br>
+                        {{ form.inputCheckbox(checkboxData, '', 'checkbox-input-custom') }}
+                    " %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Input checkbox customized #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Input checkbox <span class="badge bg-white text-dark">twig component</span></h3>
+                    <div class="form-group my-3">
+                        {% set checkboxData = [
+                            {'text':'détermination', 'value':'1', 'id':'checkbox-group-1'},
+                            {'text':'plan B', 'value':'2', 'id':'checkbox-group-2', 'attributes':'checked'},
+                            {'text':'violence', 'value':'3', 'id':'checkbox-group-3', 'attributes':'checked disabled'},
+                            {'text':'voie du non agir', 'value':'4', 'id':'checkbox-group-4', 'attributes':'disabled'}
+                        ] %}
+                        {{ form.inputCheckbox(checkboxData, '', 'checkbox-input-custom') }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "
+                        {% set checkboxData = [<br>
+                            {'text':'détermination', 'value':'1', 'id':'checkbox-group-1'},<br>
+                            {'text':'plan B', 'value':'2', 'id':'checkbox-group-2', 'attributes':'checked'},<br>
+                            {'text':'violence', 'value':'3', 'id':'checkbox-group-3', 'attributes':'checked disabled'},<br>
+                            {'text':'voie du non agir', 'value':'4', 'id':'checkbox-group-4', 'attributes':'disabled'}<br>
+                        ] %}<br>
+                        {{ form.inputCheckbox(checkboxData, '', 'checkbox-input-custom') }}
+                    " %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Switch button customized #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Switch button <span class="badge bg-white text-dark">twig component</span></h3>
+                    <div class="form-group my-3">
+                        {{ form.switchButtonCircle('Yes', 'No', '.can-toggle.demo-rebrand-2', 'can-toggle-1') }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "{{ form.switchButtonCircle('Yes', 'No', '.can-toggle.demo-rebrand-2', 'can-toggle-1') }}" %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Datepicker #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Datepicker <span class="badge bg-white text-dark">twig component</span></h3>
+                    <div class="form-group my-3">
+                        {{ form.datepicker() }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "{{ form.datepicker() }}" %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Select #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Select <span class="badge bg-white text-dark">twig component</span></h3>
+                    <div class="form-group my-3">
+                        {% set selectData = [
+                            {'value':'flingue', 'text':'flingue', 'disabled':'disabled'},
+                            {'value':'bazouka', 'text':'bazouka'},
+                            {'value':'mine anti-personnel', 'text':'mine anti-personnel', 'selected':'selected'},
+                            {'value':'tronçonneuse', 'text':'tronçonneuse'},
+                            {'value':'lance-roquette', 'text':'lance-roquette'},
+                            {'value':'martinet', 'text':'martinet'},
+                        ] %}
+                        {{ select.select( selectData, 'pet-select', 'pets1', 'pets1', 'required' ) }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "
+                        {% set selectData = [<br>
+                            {'value':'flingue', 'text':'flingue', 'disabled':'disabled'},<br>
+                            {'value':'bazouka', 'text':'bazouka'},<br>
+                            {'value':'mine anti-personnel', 'text':'mine anti-personnel', 'selected':'selected'},<br>
+                            {'value':'tronçonneuse', 'text':'tronçonneuse'},<br>
+                            {'value':'lance-roquette', 'text':'lance-roquette'},<br>
+                            {'value':'martinet', 'text':'martinet'},<br>
+                        ] %}<br>
+                        {{ select.select( selectData, 'pet-select', 'pets1', 'pets1', 'required' ) }}
+                    " %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Dropdown #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Dropdown <span class="badge bg-white text-dark">twig component</span></h3>
+                    <div class="form-group my-3">
+                        {% set dropdownData = [
+                            {'value':'Action', 'class':'', 'link': '#'},
+                            {'value':'Castagne', 'class':'', 'link': '#'},
+                            {'value':'Explosion', 'class':'', 'link': '#'},
+                            {'value':'Crash', 'class':'', 'link': '#'}
+                        ] %}
+                        {{ select.dropdown( dropdownData, 'down', 'dropdown--custom', 'dropdownMenuButton', 'btn btn-secondary', 'BOUM !' ) }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "
+                        {% set dropdownData = [<br>
+                            {'value':'Action', 'class':'', 'link': '#'},<br>
+                            {'value':'Castagne', 'class':'', 'link': '#'},<br>
+                            {'value':'Explosion', 'class':'', 'link': '#'},<br>
+                            {'value':'Crash', 'class':'', 'link': '#'}<br>
+                        ] %}<br>
+                        {{ select.dropdown( dropdownData, 'down', 'dropdown--custom', 'dropdownMenuButton', 'btn btn-secondary', 'BOUM !' ) }}
+                    " %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Form control #}
+                <div class="max-width-container col-12 my-5">
+                    <h3>Form control <span class="badge bg-white text-dark">twig component</span></h3>
+                    <div class="form-group my-3">
+                        <form>
+                            {# Zip code #}
+                            <div class="form-group my-3">
+                                <label for="input-zc-1">Zip code</label>
+                                {{ form.input('text', 'form-control form-control--zip-code', 'input-zc-1', 'input-zc-1', 'saisir...') }}
+                            </div>
+                            {# Email #}
+                            <div class="form-group my-3">
+                                <label for="input-email-2">Email</label>
+                                {{ form.input('text', 'form-control form-control--email', 'input-email-2', 'input-email-2', 'saisir...') }}
+                            </div>
+                            {# Phone number #}
+                            <div class="form-group my-3">
+                                <label for="input-phone-1">Phone number</label>
+                                {{ form.input('text', 'form-control form-control--phone', 'input-phone-1', 'input-phone-1', 'saisir...') }}
+                            </div>
+                            {# CB number #}
+                            <div class="form-group my-3">
+                                <label for="input-cb-1">CB number</label>
+                                {{ form.input('text', 'form-control form-control--cb', 'input-cb-1', 'input-cb-1', 'saisir...') }}
+                            </div>
+                            {# CB CVV #}
+                            <div class="form-group my-3">
+                                <label for="input-cvv-1">CB CVV</label>
+                                {{ form.input('text', 'form-control form-control--cvv', 'input-cvv-1', 'input-cvv-1', 'saisir...') }}
+                            </div>
+                            {# CPAM number #}
+                            <div class="form-group my-3">
+                                <label for="input-cpam-1">CPAM number</label>
+                                {{ form.input('text', 'form-control form-control--cpam', 'input-cpam-1', 'input-cpam-1', 'saisir...') }}
+                            </div>
+                            {# Textarea #}
+                            <div class="form-group my-3">
+                                <label for="input-textarea-valid-1">Textarea (3 characters minimum)</label>
+                                <textarea class="form-control form-control--textarea" id="input-textarea-valid-1"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    {# Code #}
+                    {% set codeContent = '
+                        < form><br>
+                            {# Zip code #}<br>
+                            < div class="form-group my-3"><br>
+                                < label for="input-zc-1">Zip code< /label><br>
+                                {{ form.input("text", "form-control form-control--zip-code", "input-zc-1", "input-zc-1", "saisir...") }}<br>
+                            < /div><br>
+                            {# Email #}<br>
+                            < div class="form-group my-3"><br>
+                                < label for="input-email-2">Email< /label><br>
+                                {{ form.input("text", "form-control form-control--email", "input-email-2", "input-email-2", "saisir...") }}<br>
+                            < /div><br>
+                            {# Phone number #}<br>
+                            < div class="form-group my-3"><br>
+                                < label for="input-phone-1">Phone number< /label><br>
+                                {{ form.input("text", "form-control form-control--phone", "input-phone-1", "input-phone-1", "saisir...") }}<br>
+                            < /div><br>
+                            {# CB number #}<br>
+                            < div class="form-group my-3"><br>
+                                < label for="input-cb-1">CB number< /label><br>
+                                {{ form.input("text", "form-control form-control--cb", "input-cb-1", "input-cb-1", "saisir...") }}<br>
+                            < /div><br>
+                            {# CB CVV #}<br>
+                            < div class="form-group my-3"><br>
+                                < label for="input-cvv-1">CB CVV< /label><br>
+                                {{ form.input("text", "form-control form-control--cvv", "input-cvv-1", "input-cvv-1", "saisir...") }}<br>
+                            < /div><br>
+                            {# CPAM number #}<br>
+                            < div class="form-group my-3"><br>
+                                < label for="input-cpam-1">CPAM number< /label><br>
+                                {{ form.input("text", "form-control form-control--cpam", "input-cpam-1", "input-cpam-1", "saisir...") }}<br>
+                            < /div><br>
+                            {# Textarea #}<br>
+                            < div class="form-group my-3"><br>
+                                < label for="input-textarea-valid-1">Textarea (3 characters minimum)< /label><br>
+                                < textarea class="form-control form-control--textarea" id="input-textarea-valid-1">< /textarea><br>
+                            < /div><br>
+                        < /form>
+                    ' %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </>
+
+            </>
+
+            {# COMPONENTS #}
+            <div class="row my-5">
+
+                <div class="col-12">
+                    <h2>COMPONENTS</h2>
+                </div>
+
+                {# Anchors #}
+                <div class="max-width-container col-12 my-5">
+                    <div class="my-3">
+                        <h3 class="mb-2">Anchors</h3>
+                        <a href="#l-footer" 
+                            class="btn btn-primary btn-anchor">go to the footer</a>
+                    </div>
+                    {# Code #}
+                    {% set codeContent = '
+                        < a href="#l-footer" <br>
+                            class="btn btn-primary btn-anchor">go to the footer< /a>
+                    ' %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Panel #}
+                <div class="max-width-container col-12 my-5">
+                    <div class="my-3">
+                        <h3 class="mb-2">Panel <span class="badge bg-white text-dark">twig component</span></h3>
+                        <button type="button" 
+                                class="btn btn-primary" 
+                                data-toggle="panel" 
+                                data-target="#panel-left-1">Panel left</button>
+                        <button type="button" 
+                                class="btn btn-secondary" 
+                                data-toggle="panel" 
+                                data-target="#panel-right-1">Panel right</button>
+                    </div>
+                    {# Code #}
+                    {% set codeContent = '
+                        {% set panelBodyContent %}<br>
+                            < strong>Body here...< /strong><br>
+                        {% endset %}<br>
+                        {% set panelFooterContent %}<br>
+                            < strong>Footer here...< /strong><br>
+                        {% endset %}<br>
+                        {{ panel.panelPos(panelBodyContent, panelFooterContent, "left", "panel-left-1", "Mon titre") }}<br>
+                        {{ panel.panelPos(panelBodyContent, panelFooterContent, "right", "panel-right-1", "Mon titre") }}<br>
+                        < button type="button" 
+                                class="btn btn-primary" 
+                                data-toggle="panel" 
+                                data-target="#panel-left-1">Panel left< /button><br>
+                        < button type="button" 
+                                class="btn btn-secondary" 
+                                data-toggle="panel" 
+                                data-target="#panel-right-1">Panel right< /button>
+                    ' %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Cookie panel #}
+                <div class="max-width-container col-12 my-5">
+                    <div class="my-3">
+                        <h3 class="mb-2">Cookie panel <span class="badge bg-white text-dark">twig component</span></h3>
+                    </div>
+                    {# Code #}
+                    {% set codeContent = "
+                        {{ panel.panelCookiePos('panel-cookie-1') }}
+                    " %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Alerts #}
+                <div class="max-width-container col-12 my-5">
+                    <div class="my-3">
+                        <h3 class="mb-2">Alerts</h3>
+                    </div>
+                    <div class="my-3">
+                        {% set arrayAlerts = ["primary","secondary","success","danger","warning","info","light","dark"] %}
+                        {% for item in arrayAlerts %}
+                            <div class="alert alert-{{ item }}" role="alert">
+                                A simple {{ item }} alert—check it out!
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = '
+                        {% set arrayAlerts = ["primary","secondary","success","danger","warning","info","light","dark"] %}<br>
+                        {% for item in arrayAlerts %}<br>
+                            < div class="alert alert-{{ item }}" role="alert"><br>
+                                A simple {{ item }} alert—check it out!<br>
+                            < /div>
+                        {% endfor %}
+                    ' %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Tooltip #}
+                <div class="max-width-container col-12 my-5">
+                    <div class="my-3">
+                        <h3 class="mb-2">Tooltip</h3>
+                    </div>
+                    <div class="my-3">
+                        <button type="button"
+                            class="btn btn-primary inline-block"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            title="Tooltip">
+                            Tooltip top
+                        </button>
+                        <button type="button"
+                            class="btn btn-primary inline-block"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="Tooltip">
+                            Tooltip bottom
+                        </button>
+                        <button type="button"
+                            class="btn btn-primary inline-block"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Tooltip">
+                            Tooltip left
+                        </button>
+                        <button type="button"
+                            class="btn btn-primary inline-block"
+                            data-toggle="tooltip"
+                            data-placement="right"
+                            title="Tooltip">
+                            Tooltip right
+                        </button>
+                    </div>
+                    {# Code #}
+                    {% set codeContent = '
+                        < button type="button"<br>
+                            class="btn btn-primary inline-block"<br>
+                            data-toggle="tooltip"<br>
+                            data-placement="top"<br>
+                            title="Tooltip"><br>
+                            top<br>
+                        < /button><br>
+                        < button type="button"<br>
+                            class="btn btn-primary inline-block"<br>
+                            data-toggle="tooltip"<br>
+                            data-placement="bottom"<br>
+                            title="Tooltip"><br>
+                            bottom<br>
+                        < /button><br>
+                        < button type="button"<br>
+                            class="btn btn-primary inline-block"<br>
+                            data-toggle="tooltip"<br>
+                            data-placement="left"<br>
+                            title="Tooltip"><br>
+                            left<br>
+                        < /button><br>
+                        < button type="button"<br>
+                            class="btn btn-primary inline-block"<br>
+                            data-toggle="tooltip"<br>
+                            data-placement="right"<br>
+                            title="Tooltip"><br>
+                            right<br>
+                        < /button>
+                    ' %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Pagination #}
+                <div class="max-width-container col-12 my-5">
+                    <div class="my-3">
+                        <h3 class="mb-2">Pagination <span class="badge bg-white text-dark">twig component</span></h3>
+                    </div>
+                    <div class="my-3">
+                        {{ pagination.paginationNav(5) }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = '{{ pagination.paginationNav(5) }}' %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Breadcrumb #}
+                <div class="max-width-container col-12 my-5">
+                    <div class="my-3">
+                        <h3 class="mb-2">Breadcrumb <span class="badge bg-white text-dark">twig component</span></h3>
+                    </div>
+                    <div class="my-3">
+                        {% set arrayBreadcrumb = [
+                            { "value": "Home", "link": "#" },
+                            { "value": "Library", "link": "#" },
+                            { "value": "Data" }
+                        ] %}
+                        {{ list.breadcrumb(arrayBreadcrumb) }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = '
+                        {% set arrayBreadcrumb = [<br>
+                            { "value": "Home", "link": "#" },<br>
+                            { "value": "Library", "link": "#" },<br>
+                            { "value": "Data" }<br>
+                        ] %}<br>
+                        {{ list.breadcrumb(arrayBreadcrumb) }}
+                    ' %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Progress bar #}
+                <div class="max-width-container col-12 my-5">
+                    <div class="my-3">
+                        <h3 class="mb-2">Progress bar <span class="badge bg-white text-dark">twig component</span></h3>
+                    </div>
+                    <div class="my-3">
+                        {% set arrayProgressBar = '' %}
+                        {{ progress.progressBar(arrayProgressBar) }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = '
+                        {% set arrayProgressBar = "" %}<br>
+                        {{ progress.progressBar(arrayProgressBar) }}
+                    ' %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Icon list #}
+                <div class="max-width-container col-12 my-5">
+                    <div class="my-3">
+                        <h3 class="mb-2">Icon list <span class="badge bg-white text-dark">twig component</span></h3>
+                    </div>
+                    <div class="my-3">
+                        {% set arrayListIcons = [
+                            { "titleTag": "h3", "title": "Fou furieux", "xlink": "search", "desc": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...", "link":"#", "linkVal":"lien 1" },
+                            { "titleTag": "h3", "title": "Estropié", "xlink": "close", "desc": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...", "link":"#", "linkVal":"lien 2" },
+                            { "titleTag": "h3", "title": "Traumatisé", "xlink": "arrow", "desc": "", "link":"#", "linkVal":"lien 3" },
+                            { "titleTag": "h3", "title": "Parano", "xlink": "menu-burger", "desc": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...", "link":"", "linkVal":"" },
+                        ] %}
+                        {{ list.listIcons(arrayListIcons, 'row', 'col-12 col-sm-6 col-md-3') }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = '
+                        {% set arrayListIcons = [<br>
+                            { "titleTag": "h3", "title": "Fou furieux", "xlink": "search", "desc": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...", "link":"#", "linkVal":"lien 1" },<br>
+                            { "titleTag": "h3", "title": "Estropié", "xlink": "close", "desc": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...", "link":"#", "linkVal":"lien 2" },<br>
+                            { "titleTag": "h3", "title": "Traumatisé", "xlink": "arrow", "desc": "", "link":"#", "linkVal":"lien 3" },<br>
+                            { "titleTag": "h3", "title": "Parano", "xlink": "menu-burger", "desc": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...", "link":"", "linkVal":"" },<br>
+                        ] %}<br>
+                        {{ list.listIcons(arrayListIcons, "row", "col-12 col-sm-6 col-md-3") }}
+                    ' %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Modal #}
+                <div class="max-width-container col-12 my-5">
+                    <div class="my-3">
+                        <h3 class="mb-2">Modal <span class="badge bg-white text-dark">twig component</span></h3>
+                    </div>
+                    <div class="my-3">
+                        {% set htmlContent = '
+                            Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
+                        ' %}
+                        {% set btnArray = [
+                            { "class": "btn-secondary", "text": "Close", "dataDismiss": "modal" },
+                            { "class": "btn-primary", "text": "Save changes" }
+                        ] %}
+                        <button type="button" 
+                                class="btn btn-primary" 
+                                data-toggle="modal" 
+                                data-target="#exampleModal">Launch demo modal</button>
+                        {{ modal.modalDefault('exampleModal', 'Modal title', htmlContent, btnArray) }}
+                    </div>
+                    {# Code #}
+                    {% set codeContent = '
+                        {% set htmlContent = "<br>
+                            Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...<br>
+                        " %}<br>
+                        {% set btnArray = [<br>
+                            { "class": "btn-secondary", "text": "Close", "dataDismiss": "modal" },<br>
+                            { "class": "btn-primary", "text": "Save changes" }<br>
+                        ] %}<br>
+                        < button type="button" <br>
+                                class="btn btn-primary" <br>
+                                data-toggle="modal" <br>
+                                data-target="#exampleModal">Launch demo modal< /button><br>
+                        {{ modal.modalDefault("exampleModal", "Modal title", htmlContent, btnArray) }}
+                    ' %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+
+                {# Steps #}
+                <div class="max-width-container col-12 my-5">
+                    <div class="my-3">
+                        <h3 class="mb-2">Steps <span class="badge bg-white text-dark">twig component</span></h3>
+                    </div>
+                    <div class="my-3">
+                        {% set stepsArr = [
+                            { "link": "https://getbootstrap.com/", "text": "Step 1", "class": "", "xlink": "icon-search" },
+                            { "link": "https://getbootstrap.com/", "text": "Step 2", "class": "", "xlink": "icon-copy" },
+                            { "link": "", "text": "Step 3", "class": "steps__item--inactive", "xlink": "icon-arrow" },
+                            { "link": "", "text": "End", "class": "steps__item--inactive", "xlink": "icon-menu-burger" }
+                        ] %}
+                        <div>Row position</div>
+                        {{ steps.stepsList(stepsArr, 'mb-3') }}
+                        <div>Column position</div>
+                        <div style="width: 7.5rem;">
+                            {{ steps.stepsList(stepsArr, 'steps--col') }}
+                        </div>
+                    </div>
+                    {# Code #}
+                    {% set codeContent = '
+                        {% set stepsArr = [<br>
+                            { "link": "https://getbootstrap.com/", "text": "Step 1", "class": "", "xlink": "icon-search" },<br>
+                            { "link": "https://getbootstrap.com/", "text": "Step 2", "class": "", "xlink": "icon-copy" },<br>
+                            { "link": "", "text": "Step 3", "class": "steps__item--inactive", "xlink": "icon-arrow" },<br>
+                            { "link": "", "text": "End", "class": "steps__item--inactive", "xlink": "icon-menu-burger" }<br>
+                        ] %}<br>
+                        {{ steps.stepsList(stepsArr, "mb-3") }}<br>
+                        {{ steps.stepsList(stepsArr, "steps--col") }}
+                    ' %}
+                    {{ code.codeClipboard(codeContent, 'html') }}
+                </div>
+                
+            </div>
+
+        </div>
+    </main>
+{% endblock %}
+
+{# JS #}
+{% block javascript %}
+    {% include '../partials/javascript.twig' %}
+    <script src="https://vjs.zencdn.net/7.5.5/video.js"></script>
+    {{ parent() }}
+{% endblock %}

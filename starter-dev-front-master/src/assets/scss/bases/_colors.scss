@@ -1,0 +1,18 @@
+// Variables
+$light: #fff;
+$dark: #000;
+
+
+// Background colors
+.bg-light       { background-color: $light !important; }
+.bg-dark        { background-color: $dark !important; }
+
+
+// Text colors
+.text-light     { color: $light !important; }
+.text-dark      { color: $dark !important; }
+
+
+// Fill colors
+.svg-light     { fill: $light !important; }
+.svg-dark      { fill: $dark !important; }

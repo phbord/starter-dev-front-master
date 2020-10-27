@@ -1,0 +1,96 @@
+{# S V G ----------------------------------------------------------------------------------------- #}
+
+{% macro svgInline(xlink, w, h, fill) %}
+
+    <svg class="icon {{xlink}}" 
+         width="{{w}}" 
+         height="{{h}}" 
+         fill="{{fill}}">
+        <use xlink:href="#{{xlink}}"></use>
+    </svg>
+
+{% endmacro %}
+
+
+
+{# I M A G E ------------------------------------------------------------------------------------- #}
+
+{% macro image(src, class, alt) %}
+
+    <img src="{{src}}" alt="{{alt}}" class="{{class}}">
+
+{% endmacro %}
+
+
+
+{# V I D E O ------------------------------------------------------------------------------------- #}
+
+{% macro video(videoArr, class, attributs, poster) %}
+
+    {% if not poster or poster == '' or poster == null %}
+        <video class="video-js {{ class }}" 
+                {{ attributs }}>
+    {% else %}
+        <video class="video-js {{ class }}" 
+                {{ attributs }} 
+                poster="{{ poster }}">
+    {% endif %}
+        {% for item in videoArr %}
+            <source src="{{ item.src}}" 
+                    type="video/{{ item.type }}">
+        {% endfor %}
+
+        <p class=”vjs-no-js”>
+            <span>To view this video please enable JavaScript, and consider upgrading to a web browser that <span>
+            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>.
+        </p>
+    </video>
+
+{% endmacro %}
+
+
+
+{# V I D E O  Y O U T U B E ---------------------------------------------------------------------- #}
+
+{% macro videoYoutube(src, class, width, height, ratioHeight, parentClass) %}
+
+    <iframe class="video-youtube {{ class }}"
+            width="{{ width }}"
+            height="{{ height }}"
+            data-ratio-height="{{ ratioHeight }}"
+            data-parent-class="{{ parentClass }}"
+            src="{{ src }}"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+
+{% endmacro %}
+
+
+
+{% macro owlCarousel(arr, id, class) %}
+
+    <div class="owl-carousel owl-theme owl-loaded owl-drag {{ class }}"
+        id="{{ id }}">
+        {% for item in arr %}
+            {% set img = '' %}
+            {% set imgBase = '../assets/images/' %}
+            {% if item.src %}
+                {% set img = item.src %}
+            {% endif %}
+
+            <div class="item" 
+                    style="background-image: url('{{ img }}');">
+                <div class="sub-item">
+                    {% if item.src %}
+                        <h4 class="h4">{{ item.title }}</h4>
+                    {% endif %}
+                    {% if item.src %}
+                        <div class="desc">{{ item.desc }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endmacro %}

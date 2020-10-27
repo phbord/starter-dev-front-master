@@ -1,0 +1,22 @@
+{% macro srollTopPageButton(text, position) %}
+
+    {% if not position %}
+        <button type="button" 
+            class="scroll-top-page scroll-top-page--hidden" 
+            id="scroll-top-page" 
+            title="{{ text }}">
+    {% else %}
+        <button type="button" 
+            class="scroll-top-page scroll-top-page--hidden" 
+            id="scroll-top-page" 
+            data-toggle="tooltip" 
+            data-placement="{{ position }}" 
+            data-html="true"
+            title="{{ text }}">
+    {% endif %}
+        <svg class="icon icon-arrow svg-light" width="20" height="20">
+            <use xlink:href="#icon-arrow"></use>
+        </svg>
+    </button>
+
+{% endmacro %}

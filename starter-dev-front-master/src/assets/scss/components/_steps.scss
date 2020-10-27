@@ -1,0 +1,103 @@
+.steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.steps--col,
+    &.flex-column {
+        flex-direction: column;
+
+        .steps__item {
+            flex-direction: column;
+        }
+        
+        .steps__progress {
+            width: .5rem;
+            height: 7.5rem;
+        }
+    }
+
+    .icon {
+        width: 2rem;
+        height: 2rem;
+        fill: $light;
+    }
+}
+
+.steps__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &[data-length]:last-of-type {
+        width: auto;
+    }
+
+    &[data-length="2"] {
+        width: calc(100% - (#{$step-unit-size}/1));
+    }
+    
+    &[data-length="3"] {
+        width: calc((100%/2) - (#{$step-unit-size}/2));
+    }
+    
+    &[data-length="4"] {
+        width: calc((100%/3) - (#{$step-unit-size}/3));
+    }
+    
+    &[data-length="5"] {
+        width: calc((100%/4) - (#{$step-unit-size}/4));
+    }
+    
+    &[data-length="6"] {
+        width: calc((100%/5) - (#{$step-unit-size}/5));
+    }
+    
+    &[data-length="7"] {
+        width: calc((100%/6) - (#{$step-unit-size}/6));
+    }
+    
+    &[data-length="8"] {
+        width: calc((100%/7) - (#{$step-unit-size}/7));
+    }
+    
+    &[data-length="9"] {
+        width: calc((100%/8) - (#{$step-unit-size}/8));
+    }
+    
+    &[data-length="10"] {
+        width: calc((100%/9) - (#{$step-unit-size}/9));
+    }
+
+    &.steps__item--inactive {
+        .steps__unit,
+        .steps__progress {
+            background-color: blue;
+        }
+        
+        .steps__desc {
+            color: $light;
+        }
+    }
+}
+
+.steps__unit {
+    width: $step-unit-size;
+    height: $step-unit-size;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: gray;
+}
+
+.steps__desc {
+    color: $light;
+}
+
+.steps__progress {
+    width: calc(100% - #{$step-unit-size});
+    height: .5rem;
+    background-color: gray;
+}

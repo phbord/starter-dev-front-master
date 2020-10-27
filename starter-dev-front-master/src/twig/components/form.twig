@@ -1,0 +1,193 @@
+{# I N P U T ------------------------------------------------------------------------------------- #}
+
+{% macro input(type, class, id, name, placeholder, value, required, min, max) %}
+
+    {% if type == 'text' %}
+        <input type="text" 
+               name={{name}} 
+               id="{{id}}" 
+               class="{{class}}"
+               placeholder="{{placeholder}}"
+               {% if required == 'required' %}required{% endif %}>
+    {% elseif type == 'password' %}
+        <input type="password" 
+               name={{name}} 
+               id="{{id}}" 
+               class="{{class}}"
+               placeholder="{{placeholder}}"
+               {% if required == 'required' %}required{% endif %}>
+    {% elseif type == 'hidden' %}
+        <input type="hidden" 
+               name={{name}} 
+               id="{{id}}" 
+               class="{{class}}"
+               placeholder="{{placeholder}}"
+               {% if required == 'required' %}required{% endif %}>
+    {% elseif type == 'file' %}
+        <input type="file" 
+               name={{name}} 
+               id="{{id}}" 
+               class="{{class}}"
+               placeholder="{{placeholder}}"
+               {% if required == 'required' %}required{% endif %}
+               accept="image/png, image/jpeg">
+    {% elseif type == 'number' %}
+        <input type="number" 
+               name={{name}} 
+               id="{{id}}" 
+               class="{{class}}"
+               placeholder="{{placeholder}}"
+               {% if required == 'required' %}required{% endif %}
+               min="{{min}}" 
+               max="{{max}}">
+    {% elseif type == 'email' %}
+        <input type="email" 
+               name={{name}} 
+               id="{{id}}" 
+               class="{{class}}" 
+               placeholder="{{placeholder}}"
+               pattern=".+@globex.com" 
+               {% if required == 'required' %}required{% endif %}>
+    {% elseif type == 'phone' %}
+        <input type="phone" 
+               name={{name}} 
+               id="{{id}}" 
+               class="{{class}}" 
+               placeholder="{{placeholder}}"
+               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" 
+               {% if required == 'required' %}required{% endif %}>
+    {% elseif type == 'time' %}
+        <input type="time" 
+               name={{name}} 
+               id="{{id}}" 
+               class="{{class}}"
+               placeholder="{{placeholder}}"
+               {% if required == 'required' %}required{% endif %}
+               min="{{min}}" 
+               max="{{max}}">
+    {% elseif type == 'range' %}
+        <input type="range" 
+               name={{name}} 
+               id="{{id}}" 
+               class="{{class}}"
+               {% if required == 'required' %}required{% endif %}
+               min="{{min}}" 
+               max="{{max}}"
+               value="{{value}}">
+    {% elseif type == 'submit' %}
+        <input type="submit"
+               name="{{name}}"
+               id="{{id}}"
+               class="form-control {{class}}"
+               placeholder="{{placeholder}}"
+               value="{{value}}">
+    {% endif %}
+
+{% endmacro %}
+
+
+{# I N P U T  F I L E  C U S T O M I Z E D ------------------------------------------------------- #}
+
+{% macro inputFile(type, class, id, name, placeholder, value, required, min, max) %}
+
+    <input type="file" 
+            name={{name}} 
+            id="{{id}}" 
+            class="{{class}}"
+            placeholder="{{placeholder}}"
+            {% if required == 'required' %}required{% endif %}
+            accept="image/png, image/jpeg">
+    <label for="{{id}}" 
+            class="label-input-file-custom">
+        <span class="label-input-file-custom__desc">Choose a file...</span>
+        <span class="label-input-file-custom__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
+                <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path>
+            </svg>
+        </span>
+    </label>
+            
+{% endmacro %}
+
+
+{# D A T E P I C K E R --------------------------------------------------------------------------- #}
+
+{% macro datepicker(inputValue, iconClass) %}
+
+    <div class="input-group date" 
+         data-provide="datepicker" 
+         data-date-format="dd-mm-yyyy"
+         data-date-language="fr">
+        <input type="text" 
+                class="form-control datepicker" 
+                value="{{ inputValue }}">
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-secondary">
+                <span class="glyphicon glyphicon-calendar fa fa-calendar"></span>
+            </button>
+        </div>
+    </div>
+
+{% endmacro %}
+
+
+{# R A D I O  B U T T O N S  C U S T O M I Z E D ------------------------------------------------- #}
+
+{% macro inputRadio(arrayRadio, groupClass, inputClass, labelClass) %}
+
+    {% for item in arrayRadio %}
+        <div class="{{ groupClass }}">
+            <input type="radio" 
+                    class="{{ inputClass }}" 
+                    id="{{ item.id }}" 
+                    name="{{ item.name }}" 
+                    value="{{ item.value }}" 
+                    {{ item.checked }}>
+            <label class="{{ labelClass }}" 
+                    for="{{ item.id }}">{{ item.text }}</label>
+        </div>
+    {% endfor %}
+
+{% endmacro %}
+
+
+{# I N P U T  C H E C K B O X  C U S T O M I Z E D ----------------------------------------------- #}
+
+{% macro inputCheckbox(arraySwitchButton, groupClass, inputClass, labelClass) %}
+
+    {% for item in arraySwitchButton %}
+        <div class="{{ groupClass }}">
+            <input type="checkbox" 
+                    class="{{ inputClass }}" 
+                    id="{{ item.id }}" 
+                    data-id="{{item.dataId}}" 
+                    value="{{ item.value }}" 
+                    {{ item.attributes }}>
+            <label class="{{ labelClass }}" 
+                    for="{{ item.id }}">{{ item.text }}</label>
+        </div>
+    {% endfor %}
+
+{% endmacro %}
+
+
+{# S W I T C H  B U T T O N  C I R C L E  C U S T O M I Z E D ------------------------------------ #}
+
+{% macro switchButtonCircle(valueChecked, valueUnchecked, text, id) %}
+
+    <div class="can-toggle demo-rebrand-2">
+        <input id="{{ id }}" type="checkbox">
+        <label for="{{ id }}">
+            <div class="can-toggle__switch" 
+                 data-checked="{{ valueChecked }}" 
+                 data-unchecked="{{ valueUnchecked }}"></div>
+            {% if not text or text == '' or text == null %}
+                <div class="can-toggle__label-text" hidden>{{ text }}</div>
+            {% else %}
+                <div class="can-toggle__label-text">{{ text }}</div>
+            {% endif %}
+        </label>
+    </div>
+
+{% endmacro %}
+    

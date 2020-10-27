@@ -1,0 +1,80 @@
+{% macro listSimple(clsList, itemsList) %}
+
+    <ul class="{{ clsList }}">
+        {% for item in itemsList %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+
+{% endmacro %}
+
+
+{% macro breadcrumb(arr) %}
+    {% set svg %}
+        <svg class="icon icon-arrow">
+            <use xlink:href="#icon-arrow"></use>
+        </svg>
+    {% endset %}
+    
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            {% for item in arr %}
+                {% if not loop.last %}
+                    <li class="breadcrumb-item">
+                        {% if not loop.first %}
+                            {{ svg }}
+                        {% endif %}
+                        <a href="{{ item.link }}">{{ item.value }}</a>
+                {% else %}
+                    <li class="breadcrumb-item active" aria-current="page">
+                        {{ svg }}
+                        <span>{{ item.value }}</span>
+                {% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    </nav>
+
+{% endmacro %}
+
+
+{% macro listIcons(arr, listCls, itemCls) %}
+
+    <ul class="icon-list {{ listCls }}">
+        {% for item in arr %}
+            <li class="icon-list__item {{ itemCls }}">
+                {# TITLE #}
+                {% set tag = item.titleTag %}
+                {% if not tag or tag == '' %}
+                    {% set tag = 'div' %}   
+                {% endif %}
+                {% if item.title %}
+                    <{{ tag }} class="icon-list__title">{{ item.title }}</{{ tag }}>
+                {% endif %}
+
+                {# ICON #}
+                <div class="icon-list__icon-group">
+                    <span class="icon-list__icon">
+                        <svg class="icon icon-{{ item.xlink }}">
+                            <use xlink:href="#icon-{{ item.xlink }}"></use>
+                        </svg>
+                    </span>
+                </div>
+
+                {# DESCRIPTION #}
+                {% if item.desc or not item.desc == '' %}
+                    <div class="icon-list__desc">{{ item.desc }}</div>
+                {% endif %}
+
+                {# LINKS / BUTTONS #}
+                {% if item.link and item.linkVal %}
+                    <div class="icon-list__link-group">
+                        <a href="{{ item.link }}" 
+                           class="icon-list__link">{{ item.linkVal }}</a>
+                    </div>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endmacro %}

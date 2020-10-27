@@ -1,0 +1,29 @@
+/*.tooltip {
+    //Body
+    .tooltip-inner {
+      padding: .75rem;
+      background-color: $red;
+      color: $light;
+      font-size: 1.3rem;
+    }
+}
+  
+  //Triangle
+.bs-tooltip- {
+    &top .arrow:before {
+      border-top-color: $red;
+    }
+  
+    &bottom .arrow:before {
+      border-bottom-color: $red;
+    }
+  
+    &left .arrow:before {
+      border-left-color: $red;
+    }
+  
+    &right .arrow:before {
+      border-right-color: $red;
+    }
+}*/
+  

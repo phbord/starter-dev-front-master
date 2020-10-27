@@ -1,0 +1,25 @@
+.scroll-top-page {
+    position: fixed;
+    bottom: 7.5rem;
+    right: 7.5rem;
+    z-index: 1031;
+    padding: .5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    background-color: red;
+    box-shadow: 0 0 1rem 0 $dark;
+
+    &:hover {
+        background-color: #ff000099;
+    }
+
+    &,&--hidden {
+        transition: opacity .75s ease;
+    }
+    &--hidden {
+        opacity: 0;
+    }
+}

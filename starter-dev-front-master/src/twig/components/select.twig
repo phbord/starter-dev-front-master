@@ -1,0 +1,56 @@
+{# S E L E C T ----------------------------------------------------------------------------------- #}
+
+{% macro select(arrayList, classSelect, idSelect, nameSelect, requiredAttr) %}
+
+    <select name="{{ nameSelect }}" 
+            id="{{ idSelect }}" 
+            class="{{ classSelect }}" 
+            {{ requiredAttr }}>
+        {% for item in arrayList %}
+            <option value="{{ item.value }}" {{ item.selected }} {{ item.disabled }}>
+                {{ item.text }}
+            </option>
+        {% endfor %}
+    </select>
+
+{% endmacro %}
+
+
+
+{# B O O T S T R A P  COMPONENTS  :  DROPDOWNS --------------------------------------------------- #}
+
+{% macro dropdown(arrayList, classDropdow, classDropdowFollow, idBtn, classBtn, valBtn, classMenu) %}
+
+    {% if classDropdow in ['up', 'down', 'left', 'right'] %}
+        <div class="drop{{ classDropdow }} {{ classDropdowFollow }}">
+    {% else %}
+        <div class="dropdown {{ classDropdowFollow }}">
+    {% endif %}
+
+        {# BUTTON #}
+        <button type="button"
+                id="{{ idBtn }}" 
+                class="{{ classBtn }} dropdown-toggle"
+                data-toggle="dropdown" 
+                aria-haspopup="true" 
+                aria-expanded="false">
+            <span class="dropdown-toggle__text">{{ valBtn }}</span>
+        </button>
+
+        {# MENU #}
+        <ul class="dropdown-menu {{ classMenu }}" aria-labelledby="{{ idBtn }}">
+            {% for item in arrayList %}
+                <li class="dropdown-li">
+                    <a class="dropdown-item {{ item.class }}" href="{{ item.link }}">{{ item.value }}</a>
+                </li>
+            {% endfor %}
+            {#<a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>#}
+        </ul>
+
+    </div>
+
+{% endmacro %}
+
+

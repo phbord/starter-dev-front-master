@@ -1,0 +1,22 @@
+{# I N P U T ------------------------------------------------------------------------------------- #}
+
+{% macro codeClipboard(content, langType) %}
+
+    <div class="code-group">
+        <span class="language-clipboard language-clipboard--{{ langType }}">
+            {{ langType }}
+        </span>
+        <button type="button" 
+                class="btn-clipboard" 
+                title="" 
+                data-original-title="Copy to clipboard">
+                <svg class="icon icon-copy">
+                    <use xlink:href="#icon-copy"></use>
+                </svg>
+        </button>
+        <code class="language language-{{ langType }}" data-lang="{{ langType }}">
+            {{ content }}
+        </code>
+    </div>
+
+{% endmacro %}

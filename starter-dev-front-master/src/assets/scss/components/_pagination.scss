@@ -1,0 +1,39 @@
+.pagination-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination {
+    .icon-arrow {
+        width: 1.5rem;
+        height: 1.5rem;
+
+        &--prev {
+            transform: rotate(-90deg);
+        }
+        &--next {
+            transform: rotate(90deg);
+        }
+    }
+
+    .page-item{
+        &:first-of-type .page-link {
+            border-top-left-radius: 50%;
+            border-bottom-left-radius: 50%;
+        }
+        &:last-of-type .page-link {
+            border-top-right-radius: 50%;
+            border-bottom-right-radius: 50%;
+        }
+    }
+
+    .page-link {
+        min-width: 3rem;
+        height: 3rem;
+        padding: .25rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

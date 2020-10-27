@@ -1,0 +1,37 @@
+{# S T E P S ------------------------------------------------------------------------------------- #}
+
+{% macro stepsList(stepsArr, listClass) %}
+
+    <ul class="steps {{ listClass }}">
+        {% for item in stepsArr %}
+            <li class="steps__item {{ item.class }}" data-length="{{ loop.length }}">
+                {% set linkActive = item.link %}
+                {% set disabledClass = '' %}
+                
+                {% if not item.link or item.link == '' or item.link == '#' %}
+                    {% set linkActive = 'javascript:void(0)' %}
+                    {% set disabledClass = 'disabled' %}
+                {% endif %}
+
+                {# Circle #}
+                <a href="{{ linkActive }}" class="steps__unit {{ disabledClass}}">
+                    {% if item.xlink and item.xlink != '' %}
+                        <svg class="icon {{item.xlink}}">
+                            <use xlink:href="#{{item.xlink}}"></use>
+                        </svg>
+                    {% endif %}
+                    <span class="steps__desc">{{ item.text }}</span>
+                </a>
+
+                {# Line #}
+                {% if not loop.last %}
+                    <span class="steps__progress"></span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endmacro %}
+
+
+

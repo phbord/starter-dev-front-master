@@ -1,0 +1,92 @@
+{% extends "../partials/layout.twig" %}
+
+
+{# TITLE #}
+{% block title %}Index{% endblock %}
+
+{# CONTENT #}
+{% block page %}
+    {% import '../components/list.twig' as list %}
+    {% import '../components/form.twig' as form %}
+    {% import '../components/select.twig' as select %}
+    {% import '../components/media.twig' as media %}
+
+
+    <main role="main" class="container flex-shrink-0">
+        <div class="jumbotron">
+            <h1>Example TWIG</h1>
+
+            <div class="row mt-5">
+
+                {# LEFT #}
+                <div class="col-sm-6 col-md-4 mb-3">
+                    <figure class="figure">
+                        {{ media.image('../assets/images/chucknorris.jpg', '', 'Torse musculeux et poilu de Chuck Norris') }}
+                        <figcaption class="figure-caption mt-1">Torse musculeux et poilu de Chuck Norris.</figcaption>
+                    </figure>
+                </div>
+
+                {# CENTER #}
+                <div class="col-sm-6 col-md-4 mb-3">
+                    <a class="btn btn-lg btn-primary" 
+                        href="/docs/4.3/components/navbar/" 
+                        role="button">View navbar docs »</a>
+                    <div class="form-group">
+                        <label class="mt-4" for="firstName">Champ texte</label>
+                        {{ form.input('text', 'form-control', 'firstName', 'firstName', 'saisir...') }}
+                    </div>
+                    {# Select #}
+                    <div class="form-group">
+                        {% set selectData = [
+                            {'value':'flingue', 'text':'flingue', 'disabled':'disabled'},
+                            {'value':'bazouka', 'text':'bazouka'},
+                            {'value':'mine anti-personnel', 'text':'mine anti-personnel', 'selected':'selected'},
+                            {'value':'tronçonneuse', 'text':'tronçonneuse'},
+                            {'value':'lance-roquette', 'text':'lance-roquette'},
+                            {'value':'martinet', 'text':'martinet'},
+                        ] %}
+                        
+                        <label class="mt-4" for="pets1">Liste déroulante</label>
+                        {{ select.select( selectData, 'pet-select', 'pets1', 'pets1', 'required' ) }}
+                    </div>
+                    {# Dropdown #}
+                    <div class="form-group">
+                        {% set dropdownData = [
+                            {'value':'Action', 'class':'', 'link': '#'},
+                            {'value':'Castagne', 'class':'', 'link': '#'},
+                            {'value':'Explosion', 'class':'', 'link': '#'},
+                            {'value':'Crash', 'class':'', 'link': '#'}
+                        ] %}
+                        
+                        <label class="mt-4" for="dropdownMenuButton">Dropdown</label>
+                        {{ select.dropdown( dropdownData, 'down', 'dropdown--custom', 'dropdownMenuButton', 'btn btn-secondary', 'BOUM !' ) }}
+                    </div>
+                </div>
+
+                {# RIGHT #}
+                <div class="col-sm-6 col-md-4 mb-3">
+                    <p class="lead">"Je mets les pieds où je veux Little John, et c'est souvent dans la gueule !" ("Invasion USA")</p>
+                    <p class="lead">"QUAND ON TIRE, ON TIRE. ON RACONTE PAS SA VIE" ("LE BON, LA BRUTE ET LE TRUAND") ("Invasion USA")</p>
+                    <p class="lead">""HEY, T'AIMES BIEN LES OMELETTES ? TIENS, J'TE CASSE LES ŒUFS" ("LAST ACTION HERO")</p>
+                    <div>
+                        <p class="mt-4">Icône</p>
+                        <svg class="icon icon-search" width="20" height="20">
+                            <use xlink:href="#icon-search"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="mt-4">Liste</p>
+                        {{ list.listSimple('my-list', ["Arrrrrrh","GRRRRRRR","oooooooh"]) }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{# JS #}
+{% block javascript %}
+    {% include '../partials/javascript.twig' %}
+    {{ parent() }}
+{% endblock %}

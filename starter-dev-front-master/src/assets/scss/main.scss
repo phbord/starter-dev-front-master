@@ -1,0 +1,41 @@
+// BASES
+@import "bases/variables";
+@import "bases/sizes";
+@import "bases/colors";
+@import "bases/fonts";
+@import "bases/headings";
+//@import "bases/mixins";
+@import "bases/commons";
+
+// COMPONENTS
+@import "components/scroll-top-page";
+@import "components/form";
+@import "components/input_file";
+@import "components/input_checkbox";
+@import "components/radio-buttons";
+@import "components/switch-button";
+@import "components/select";
+@import "components/buttons";
+@import "components/badges";
+@import "components/icon-list";
+//@import "components/tables";
+//@import "components/tabs-nav";
+@import "components/carousel";
+@import "components/accordion";
+@import "components/tooltip";
+@import "components/notify";
+@import "components/modal";
+@import "components/pagination";
+@import "components/breadcrumb";
+@import "components/progress-bar";
+@import "components/steps";
+//@import "components/helpers";
+@import "components/code";
+
+// LAYOUT
+@import "layout/header";
+@import "layout/footer";
+@import "layout/panel";
+
+// PARTIALS
+@import "partials/index";

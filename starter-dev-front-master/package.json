@@ -1,0 +1,49 @@
+{
+  "name": "starter-dev-front",
+  "version": "1.0.0",
+  "description": "twig, scss, ts, images, svg inline, images, minifications...",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:debug": "ts-node --inspect=5858 --debug-brk --ignore false main.ts",
+    "start:idea": "ts-node %NODE_DEBUG_OPTION% --ignore false main.ts",
+    "cl": "clean",
+    "srv": "serve",
+    "prd": "build",
+    "dev": "run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.paris.dmz.stde.sqli.com:phbord/starter-dev-front.git"
+  },
+  "author": "pierre-henri bord",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jquery": "^3.3.31",
+    "browser-sync": "^2.26.7",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-changed": "^4.0.2",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^6.2.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sass-lint": "^1.4.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-svg-sprites": "^4.1.2",
+    "gulp-transform": "^3.0.5",
+    "gulp-tslint": "^8.1.4",
+    "gulp-twig": "^1.2.0",
+    "gulp-uglify": "^3.0.2",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.3"
+  },
+  "dependencies": {
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "tslint": "^5.20.1"
+  }
+}

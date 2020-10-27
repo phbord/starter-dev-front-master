@@ -1,0 +1,55 @@
+//INPUT FILE CUSTOMIZED
+.label-input-file-custom,
+.input-file-custom {
+	overflow: hidden;
+    cursor: pointer;
+}
+.label-input-file-custom {
+    max-width: 80%;
+    padding: 0;
+    display: inline-block;
+    border: 1px solid #d3394c;
+    background-color: #f1e5e6;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:hover {
+        background-color: #722040;
+    }
+    
+    .label-input-file-custom__desc,
+    .label-input-file-custom__icon {
+        padding: .625rem 1.25rem;
+    }
+    .label-input-file-custom__desc {
+        width: 200px;
+        min-height: 2em;
+        display: inline-block;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        vertical-align: top;
+    }
+    .label-input-file-custom__icon {
+        height: 100%;
+        display: inline-block;
+        background-color: #d3394c;
+        color: #f1e5e6;
+    }
+    svg {
+        fill: $light;
+    }
+}
+.input-file-custom {
+	position: absolute;
+    z-index: -1;
+    width: .01rem;
+	height: .01rem;
+	opacity: 0;
+    
+    &:focus {
+        background-color: red;
+    }
+}

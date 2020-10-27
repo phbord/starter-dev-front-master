@@ -1,0 +1,66 @@
+{% macro panelPos(bodyContent, footerContent, positionClass, id, title) %}
+
+    {% import 'media.twig' as media %}
+
+    {% set posClass = positionClass %}
+    {% if positionClass == '' %}
+        {% set posClass = 'left' %}
+    {% endif %}
+
+    <section class="panel panel--{{ posClass }} fade" 
+             id="{{ id }}" 
+             tabindex="-1" 
+             role="panel-{{ posClass }}" 
+             aria-labelledby="{{ id }}" 
+             aria-hidden="true">
+        <div class="panel__header">
+            <h2 class="panel__title">{{ title }}</h2>
+            <button type="button" 
+                    class="panel__btn-close" 
+                    data-dismiss="panel" 
+                    aria-label="Close">
+                {{ media.svgInline('icon-close', '15', '15', 'red') }}
+            </button>
+        </div>
+        <div class="panel__body">
+            {{ bodyContent }}
+        </div>
+        <div class="panel__footer">
+            {{ footerContent }}
+        </div>
+    </section>
+
+    {#
+        <div class="modal-backdrop fade show"></div>
+    #}
+
+{% endmacro %}
+
+
+{% macro panelCookiePos(id) %}
+
+    <section class="panel panel--cookie fade" 
+             id="{{ id }}" 
+             tabindex="-1" 
+             role="panel-bottom" 
+             aria-labelledby="{{ id }}" 
+             aria-hidden="true">
+        <div class="panel__body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-10">
+                        <p>En poursuivant votre navigation sur ce site, vous acceptez le dépôt de cookies et technologies similaires.</p>
+                        <p>Nous et nos partenaires traitons ainsi certaines de vos données personnelles (identifiants électroniques,…) afin de réaliser des statistiques, améliorer la connaissance clients et vous proposer des services, offres ou publicités, y compris de partenaires tiers adaptés à vos centres d’intérêt.</p>
+                        <p>Cliquez sur le bouton "J’accepte" pour consentir à ces utilisations ou sur "Afficher les finalités" et "Voir les partenaires" pour obtenir plus de détails et/ou en refuser tout ou partie.</p>
+                        <p>Vous pouvez à tout moment revenir sur vos choix en utilisant le lien "cookies" disponible dans nos mentions légales.</p>
+                    </div>
+                    <div class="col-12 col-md-2 d-flex justify-content-end align-items-start">
+                        <button type="button" 
+                                class="btn btn-primary btn-add-cookie">J'accepte</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endmacro %}

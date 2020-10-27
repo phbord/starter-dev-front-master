@@ -1,0 +1,48 @@
+.notification-slider {
+    position: fixed;
+    bottom: -($header-height + 2rem);
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    padding: 2.5rem 1.5rem  1.5rem;
+    opacity: 0;
+    background-color: gray;
+    color: $light;
+    font-size: 1.6rem;
+    text-align: center;
+    box-shadow: 0 -2.5px 10px 0 #555;
+    transition: all 300ms ease-in;
+
+    &.notification-slider--show {
+        bottom: 0;
+        opacity: 1;
+    }
+
+    .notification__btn-close {
+        position: absolute;
+        top: .5rem;
+        right: .5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+
+        &:before,&:after {
+            content: '';
+            position: absolute;
+            right: -.5rem;
+            width: 100%;
+            height: 100%;
+            border-left: 2px solid $light;
+            display: block;
+        }
+
+        &:before {
+            top: .45rem;
+            transform: rotate(45deg);
+        }
+
+        &:after {
+            top: -.45rem;
+            transform: rotate(-45deg);
+        }
+    }
+}
